@@ -1,5 +1,9 @@
 module GRF
 
-# Write your package code here.
+# Partilha de notebooks
+# binder: https://mybinder.org
+# 
+# nbviewer: https://nbviewer.jupyter.org
+# 
 
 end
