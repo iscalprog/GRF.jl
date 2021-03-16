@@ -4,6 +4,7 @@ authors = ["António Saragga Seabra"]
 version = "0.1.0"
 
 [deps]
+ARCHModels = "6d3278bc-c23a-5105-85e5-0d57d2bf684f"
 Cbc = "9961bab8-2fa3-5c5a-9d89-47fab24efd76"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
