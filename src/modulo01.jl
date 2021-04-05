@@ -151,6 +151,7 @@ end
 
 
 function cvm(Sigma)
+    n = size(Sigma,1)
     modelo = Model(Ipopt.Optimizer)
     @variables(modelo, w[1:n])                      
     @objective(modelo, Min, w' * Sigma * w) 
@@ -162,6 +163,7 @@ end
 
 
 function fe(mu, Sigma, mu_k)
+    n = size(Sigma,1)
     modelo = Model(Ipopt.Optimizer)
     @variables(modelo, w[1:n])     
     @objective(modelo, Min, w' * Sigma * w)  
