@@ -1,8 +1,5 @@
 const DJ30n = [:AAPL, :AMGN, :AXP, :BA, :CAT, :CRM, :CSCO, :CVX, :DD, :DIS, :GS, :HD, :HON, :IBM, :INTC, :JNJ, :JPM, :KO, :MCD, :MMM, :MRK,:MSFT, :NKE, :PG, :TRV, :UNH, :V,  :VZ, :WBA, :WMT, "^DJI", "^GSPC"]
 
-const DJ30w = [0.0244, 0.0468, 0.0299, 0.0500, 0.0450, 0.0432, 0.0098, 0.0227,  0.0131, 0.0397,  0.0697, 0.0542, 0.0434, 0.0260, 0.0127,  0.0324, 0.0316, 0.0105, 0.0434, 0.0376, 0.0152, 0.0473,  0.0280, 0.0259, 0.0316, 0.0712, 0.0455, 0.0116, 0.0103,  0.0269, 0.0000]
-
-
 const PSI20n = ["ALTR.LS", "BCP.LS", "COR.LS", "CTT.LS", "EDP.LS", "EDPR.LS", "GALP.LS", "IBS.LS", "JMT.LS", "EGL.LS", "NBA.LS", "NOS.LS", "NVG.LS", "PHR.LS", "RAM.LS", "RENE.LS", "SEM.LS", "SON.LS", "PSI20.LS"]
 
 const Dn = ["AMZN", "BAC", "C", "F", "FB", "GOOG","MS", "NFLX", "PEP", "TSLA"]
@@ -80,6 +77,7 @@ yahoo(s::Vector{Symbol}, date1) = yahoo(String.(s), date1, Date(Dates.now()), "1
 yahoo(s::Symbol, date1, date2, interval) = yahoo(String(s), date1, date2, interval)
 yahoo(s::Symbol, date1, date2) = yahoo(String(s), date1, date2, "1d")
 yahoo(s::Symbol, date1) = yahoo(String(s), date1, Date(Dates.now()), "1d")
+
 
 
 function retornos(df::DataFrame, returntype) 
@@ -249,109 +247,6 @@ function alocações(mu, Sigma, alfa, lista, ncarteiras = 10)
     return fig
 end
 
-
-
-"""
-    yahoo(símbolo, data_inicial, data_final, intervalo)
-Faz o download de (i) cotações de fecho ajustadas para ações (ii) valores de índices de ações e (iii) cotações de taxas de câmbio, através de Yahoo.Finance
-
-## Argumentos
-* `símbolo`: Símbolo de mercado, e.g. "AAPL", "IBM", "^GSPC"
-* `data_inicial`: Data inicial de tipo Date/DateTime, e.g. Date(2019,12,20) ou DateTime(2019,12,20,8,30,0)
-* `data_final`: Data final de tipo Date/DateTime, e.g. Date(2020,12,20) ou DateTime(2020,12,20,8,30,0)
-* `intervalo`: Intervalo de amostragem, e.g. "1d" (por omissão), "1wk", "1mo", "3mo"
-## Exemplos
-```jldoctest
-julia> yahoo("GOOG", Date(2018,12,26), Date(2020,12,20))
-julia> yahoo("GOOG", Date(2018,12,26), Date(2020,12,20), "1wk")
-```
-"""
-function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
-    if isa(symbol, String) == true
-        nsymb = 1
-    elseif isa(symbol, Symbol) == true 
-        nsymb = 1
-    else
-        nsymb = length(symbol)
-    end
-    
-    date1 = DateTime(date1)
-    date2 = DateTime(date2)
-    if date1 > date2
-        date1, date2 = date2, date1
-    end
-    from = string(round(Int64, datetime2unix(date1)))
-    to = string(round(Int64, datetime2unix(date2)))
-    host = rand(["query1", "query2"])
-    for i in 1:nsymb
-        if nsymb == 1 && (isa(symbol, String) == true || isa(symbol, Symbol) == true) 
-            symb = String(symbol)
-        else
-            symb = String(symbol[i])
-        end
-        println(symb)
-        url = "https://$host.finance.yahoo.com/v7/finance/chart/$symb?&interval=$interval&period1=$from&period2=$to"
-        response = HTTP.get(url, cookies = true)
-        body = JSON.parse(String(response.body))["chart"]["result"][1]   
-        # values = body["indicators"]["quote"][1]
-        a = replace!(body["indicators"]["adjclose"][1]["adjclose"], nothing => missing)
-        new = DataFrame(
-            Time = Dates.Date.(unix2datetime.(body["timestamp"])),
-            # Open = convert(Vector{Float64},values["open"]),
-            # High =  convert(Vector{Float64},values["high"]),
-            # Low = convert(Vector{Float64},values["low"]),
-            # Close = convert(Vector{Float64},values["close"]),
-            #AdjClose = convert(Vector{Float64},body["indicators"]["adjclose"][1]["adjclose"]),
-            AdjClose = convert(Vector{Union{Missing, Float64}},a),
-            # Volume = convert(Vector{Int64},values["volume"])
-        )
-    
-        DataFrames.rename!(new,[:Data, Symbol(symb)])
-        #DataFrames.deleterows!(new, isnothing.(new).Close)
-        if i == 1
-            global old = new
-        else
-            old = outerjoin(old, new, on = :Data)
-        end
-    end
-    return old
-end
-yahoo(s::Vector{Symbol}, date1, date2, interval) = yahoo(String.(s), date1, date2, interval)
-yahoo(s::Vector{Symbol}, date1, date2) = yahoo(String.(s), date1, date2, "1d")
-yahoo(s::Vector{Symbol}, date1) = yahoo(String.(s), date1, Date(Dates.now()), "1d")
-yahoo(s::Symbol, date1, date2, interval) = yahoo(String(s), date1, date2, interval)
-yahoo(s::Symbol, date1, date2) = yahoo(String(s), date1, date2, "1d")
-yahoo(s::Symbol, date1) = yahoo(String(s), date1, Date(Dates.now()), "1d")
-
-
-function retornos(df::DataFrame, returntype) 
-    c = Matrix(df)
-    
-    cot = convert(Matrix{Union{Missing, Float64}},c[:,2:end])
-    dt  = convert(Vector{Date}, c[:,1])
-    nret = size(c,1) - 1
-    ncol = size(c,2) - 1       
-    
-    ret   = Array{Union{Missing, Float64}}(undef, nret, ncol)  
-    datas = Array{Date}(undef,nret)
-    if returntype == :log
-        for i = 1:nret
-            ret[i,:] = log.(cot[i+1,:]./cot[i,:])
-            datas[i] = dt[i+1] 
-        end
-    elseif returntype == :simples
-        for i = 1:nret
-            ret[i,:] = cot[i+1,:]./cot[i,:] .- 1.0
-            datas[i] = dt[i+1]    
-        end
-    end
-    d = DataFrame(Data = datas)
-    nomes = names(df)
-    popfirst!(nomes)   
-    r = DataFrame(ret, Symbol.(nomes))
-    
-    return  hcat(d, r)
-end
 
 #=
 function installedx()
