@@ -17,11 +17,10 @@ using Random            #
 using Statistics        # Estatística descritiva, inclui cálculo de quantis
 using StatsPlots        # Gráficos 
 
-include("reexport.jl")
+using Reexport
 
 @reexport using Dates: Date, now
 @reexport using CSV: read, write 
-
 
 include("modulo01.jl")
 
