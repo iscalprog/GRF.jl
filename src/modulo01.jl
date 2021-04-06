@@ -18,8 +18,8 @@ Faz o download de (i) cotações de fecho ajustadas para ações (ii) valores de
 * `intervalo`: Intervalo de amostragem, e.g. "1d" (por omissão), "1wk", "1mo", "3mo"
 ## Exemplos
 ```jldoctest
-julia> yahoo("GOOG", Date(2018,12,26), Date(2020,12,20))
-julia> yahoo("GOOG", Date(2018,12,26), Date(2020,12,20), "1wk")
+julia> GRF.yahoo("GOOG", Date(2018,12,26), Date(2020,12,20))
+julia> GRF.yahoo("GOOG", Date(2018,12,26), Date(2020,12,20), "1wk")
 ```
 """
 function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
