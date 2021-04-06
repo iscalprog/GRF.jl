@@ -2,8 +2,9 @@ const DJ30n = [:AAPL, :AMGN, :AXP, :BA, :CAT, :CRM, :CSCO, :CVX, :DD, :DIS, :GS,
 
 const PSI20n = ["ALTR.LS", "BCP.LS", "COR.LS", "CTT.LS", "EDP.LS", "EDPR.LS", "GALP.LS", "IBS.LS", "JMT.LS", "EGL.LS", "NBA.LS", "NOS.LS", "NVG.LS", "PHR.LS", "RAM.LS", "RENE.LS", "SEM.LS", "SON.LS", "PSI20.LS"]
 
-const Dn = ["AMZN", "BAC", "C", "F", "FB", "GOOG","MS", "NFLX", "PEP", "TSLA"]
+const DIVn = ["AMZN", "BAC", "C", "F", "FB", "GOOG","MS", "NFLX", "PEP", "TSLA"]
 
+const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK=X", "EURCAD=X", "EURAUD=X", "EURKRW=X", "HKD=X"]
 
 
 """
@@ -35,6 +36,7 @@ function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interv
     if date1 > date2
         date1, date2 = date2, date1
     end
+    date2 = date2 +  Day(1)  # Yahoo.Finance não incui a data final no período da amostra, daí incrmentar 1 dia
     from = string(round(Int64, datetime2unix(date1)))
     to = string(round(Int64, datetime2unix(date2)))
     host = rand(["query1", "query2"])
@@ -80,7 +82,7 @@ yahoo(s::Symbol, date1) = yahoo(String(s), date1, Date(Dates.now()), "1d")
 
 
 
-function retornos(df::DataFrame, returntype) 
+function retornos(df::DataFrame, tipo_retorno::Symbol) 
     c = Matrix(df)
     
     cot = convert(Matrix{Union{Missing, Float64}},c[:,2:end])
@@ -90,12 +92,12 @@ function retornos(df::DataFrame, returntype)
     
     ret   = Array{Union{Missing, Float64}}(undef, nret, ncol)  
     datas = Array{Date}(undef,nret)
-    if returntype == :log
+    if tipo_retorno == :log
         for i = 1:nret
             ret[i,:] = log.(cot[i+1,:]./cot[i,:])
             datas[i] = dt[i+1] 
         end
-    elseif returntype == :simples
+    elseif tipo_retorno == :simples
         for i = 1:nret
             ret[i,:] = cot[i+1,:]./cot[i,:] .- 1.0
             datas[i] = dt[i+1]    
