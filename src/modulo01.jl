@@ -8,19 +8,14 @@ const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK
 
 
 """
-    yahoo(sÃ­mbolo, data_inicial, data_final, intervalo)
-Faz o download de (i) cotaÃ§Ãµes de fecho ajustadas para aÃ§Ãµes (ii) valores de Ã­ndices de aÃ§Ãµes e (iii) cotaÃ§Ãµes de taxas de cÃ¢mbio, atravÃ©s de Yahoo.Finance
+    yahoo(simbolo, data_inicial, data_final, intervalo)
+Faz o download de (i) cotações de fecho ajustadas para ações (ii) valores de indices de ações e (iii) cotações de taxas de câmbio, através de Yahoo.Finance
 
 ## Argumentos
-* `sÃ­mbolo`: SÃ­mbolo de mercado, e.g. "AAPL", "IBM", "^GSPC"
+* `si­mbolo`: Si­mbolo de mercado, e.g. "AAPL", "IBM", "^GSPC"
 * `data_inicial`: Data inicial de tipo Date/DateTime, e.g. Date(2019,12,20) ou DateTime(2019,12,20,8,30,0)
 * `data_final`: Data final de tipo Date/DateTime, e.g. Date(2020,12,20) ou DateTime(2020,12,20,8,30,0)
 * `intervalo`: Intervalo de amostragem, e.g. "1d" (por omissÃ£o), "1wk", "1mo", "3mo"
-## Exemplos
-```jldoctest
-julia> GRF.yahoo("GOOG", Date(2018,12,26), Date(2020,12,20))
-julia> GRF.yahoo("GOOG", Date(2018,12,26), Date(2020,12,20), "1wk")
-```
 """
 function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
     if isa(symbol, String) == true
