@@ -1,6 +1,6 @@
 name = "GRF"
 uuid = "1ecb1645-cdd7-491c-b391-f06610b95cea"
-authors = ["António Saragga Seabra"]
+authors = ["Antonio Saragga Seabra"]
 version = "0.1.0"
 
 [deps]

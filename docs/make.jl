@@ -5,7 +5,7 @@ DocMeta.setdocmeta!(GRF, :DocTestSetup, :(using GRF); recursive=true)
 
 makedocs(;
     modules=[GRF],
-    authors="António Saragga Seabra",
+    authors="Antonio Saragga Seabra",
     repo="https://github.com/ASaragga/GRF.jl/blob/{commit}{path}#{line}",
     sitename="GRF.jl",
     format=Documenter.HTML(;

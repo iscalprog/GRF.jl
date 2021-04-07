@@ -127,18 +127,18 @@ function ETL(retornos, alfa, V)
 end
 
 
-function EWMA(serie, lambda)
-    m = length(serie)
-    media = mean(serie)                 
-    Ïƒ2 = 0
+function EWMA(retornos, lambda)
+    m = length(retornos)
+    media = mean(retornos)                 
+    sigma2 = 0
     for k in 1:m
-        Ïƒ2 += (1-lambda)*lambda^(k-1) * (serie[end-k+1] - media)^2
+        sigma2 += (1-lambda)*lambda^(k-1) * (retornos[end-k+1] - media)^2
     end
-    return sqrt(Ïƒ2)                     
+    return sqrt(sigma2)                     
 end
 
 
-function exceÃ§Ãµes(retornos, alfa)
+function exceções(retornos, alfa)
     nobs = lenght(retornos)
     excep = zeros(nobs)
     sigma = std(retornos)
@@ -178,20 +178,19 @@ function fe(mu, Sigma, mu_k)
 
 
 
-function gfe(mu, Sigma, alfa, T, V_0, ncarteiras = 10)
+function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
+    n = length(mu) 
     modelo = Model(Ipopt.Optimizer)
-    set_silent(modelo)    
-    n = length(mu)                              
+    set_silent(modelo)                                 
     @variable(modelo, w[1:n])                           
     @objective(modelo, Min, w' * Sigma * w)             
     @constraint(modelo, sum(w) == 1)                    
     @constraint(modelo, w .>= 0)                        
     optimize!(modelo)                                   
-    w_CVM = value.(w)                                   
-    z_alfa = quantile(Normal(0,1), alfa)
+    w_CVM = value.(w)  
+    mu_CVM = mu' * w_CVM                                 
     VaR_k = zeros(ncarteiras)
     mu_k = zeros(ncarteiras)
-    mu_CVM = mu' * w_CVM
     for i in 0:ncarteiras-1
         modelo = Model(Ipopt.Optimizer)
         set_silent(modelo)                                  
@@ -209,13 +208,13 @@ function gfe(mu, Sigma, alfa, T, V_0, ncarteiras = 10)
     end
     aVaR = -z_alfa * sqrt(T) * sqrt.(diag(Sigma)) * V_0
     fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (Î± = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Efficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
-    fig = scatter!(aVaR, mu, label = "AÃ§Ãµes")
+    fig = scatter!(aVaR, mu, label = "Ações")
     VaR_CVM = -z_alfa * sqrt(T) * sqrt(w_CVM' * Sigma * w_CVM) * V_0
-    fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR MÃ­nimo")
+    fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR Mínimo")
     return fig
 end
 
-function alocaÃ§Ãµes(mu, Sigma, alfa, lista, ncarteiras = 10)
+function alocações(mu, Sigma, lista, ncarteiras = 10)
     modelo = Model(Ipopt.Optimizer)
     set_silent(modelo)       
     n = length(mu)                           
@@ -225,7 +224,6 @@ function alocaÃ§Ãµes(mu, Sigma, alfa, lista, ncarteiras = 10)
     @constraint(modelo, w .>= 0)                        
     optimize!(modelo)                                   
     w_CVM = value.(w)                                   
-    z_alfa = quantile(Normal(0,1), alfa)
     mu_k = zeros(ncarteiras)
     w_k = zeros(n,ncarteiras)
     mu_CVM = mu' * w_CVM
@@ -247,7 +245,7 @@ function alocaÃ§Ãµes(mu, Sigma, alfa, lista, ncarteiras = 10)
     ticklabel = "P" .* string.(collect(1:ncarteiras))
     ticklabel[1] = "CVM"
     ticklabel[ncarteiras] = "CRM"
-    fig = groupedbar(w_k', bar_position = :stack, bar_width=1.0, xlabel = "Carteiras", xticks=(1:ncarteiras, ticklabel), ylabel = "AlocaÃ§Ã£o", label = permutedims(String.(lista)), legend = :bottomright)
+    fig = groupedbar(w_k', bar_position = :stack, bar_width=1.0, xlabel = "Carteiras", xticks=(1:ncarteiras, ticklabel), ylabel = "Alocações", label = permutedims(String.(lista)), legend = :bottomright)
     return fig
 end
 
