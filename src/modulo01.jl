@@ -10,10 +10,13 @@ const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK
 """
     yahoo(simbolos, data_inicial, data_final, intervalo = "1d")
     
-Download dados de Yahoo.Finance
+Obter dados de Yahoo.Finance
 
-Formato simbolos: e.g. ["IBM", "FB"]
-Formato das datas: e.g. Date(AAAA, MM, DD)
+## Argumentos
+* `simbolos`: simbolos de mercado, e.g "AAPL", "^GSPC", ["IBM", "FB"]
+* `data_inicial`: Data inicial do periodo, e.g. Date(2019,12,20) ou DateTime(2019,12,20,8,30,0)
+* `data_final`: Data final do periodo, e.g. Date(2020,12,20) ou DateTime(2020,12,20,8,30,0)
+* `intervalo`: Intervalo de amostragem, e.g. "1d" (default), "1wk", "1mo", "3mo"
 """
 function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
     if isa(symbol, String) == true
@@ -200,7 +203,7 @@ function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
         VaR_k[i+1] = -z_alfa * sqrt(T) * sqrt(w_k' * Sigma * w_k) * V_0
     end
     aVaR = -z_alfa * sqrt(T) * sqrt.(diag(Sigma)) * V_0
-    fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (alfa = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Efficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
+    fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (alfa = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Eficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
     fig = scatter!(aVaR, mu, label = "Ativos")
     VaR_CVM = -z_alfa * sqrt(T) * sqrt(w_CVM' * Sigma * w_CVM) * V_0
     fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR Minimo")
