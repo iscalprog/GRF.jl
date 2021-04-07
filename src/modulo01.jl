@@ -7,15 +7,6 @@ const DIVn = ["AMZN", "BAC", "C", "F", "FB", "GOOG","MS", "NFLX", "PEP", "TSLA"]
 const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK=X", "EURCAD=X", "EURAUD=X", "EURKRW=X", "HKD=X"]
 
 
-"""
-    yahoo(simbolo, data_inicial, data_final, intervalo)
-
-## Argumentos
-* `si�mbolo`: Si�mbolo de mercado, e.g. "AAPL", "IBM", "^GSPC"
-* `data_inicial`: Data inicial de tipo Date/DateTime, e.g. Date(2019,12,20) ou DateTime(2019,12,20,8,30,0)
-* `data_final`: Data final de tipo Date/DateTime, e.g. Date(2020,12,20) ou DateTime(2020,12,20,8,30,0)
-* `intervalo`: Intervalo de amostragem, e.g. "1d", "1wk", "1mo", "3mo"
-"""
 function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
     if isa(symbol, String) == true
         nsymb = 1
@@ -30,7 +21,7 @@ function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interv
     if date1 > date2
         date1, date2 = date2, date1
     end
-    date2 = date2 +  Day(1)  # Yahoo.Finance não incui a data final no período da amostra, daí incrmentar 1 dia
+    date2 = date2 +  Day(1)  
     from = string(round(Int64, datetime2unix(date1)))
     to = string(round(Int64, datetime2unix(date2)))
     host = rand(["query1", "query2"])
@@ -201,7 +192,7 @@ function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
         VaR_k[i+1] = -z_alfa * sqrt(T) * sqrt(w_k' * Sigma * w_k) * V_0
     end
     aVaR = -z_alfa * sqrt(T) * sqrt.(diag(Sigma)) * V_0
-    fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (α = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Efficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
+    fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (alfa = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Efficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
     fig = scatter!(aVaR, mu, label = "Ativos")
     VaR_CVM = -z_alfa * sqrt(T) * sqrt(w_CVM' * Sigma * w_CVM) * V_0
     fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR Minimo")
