@@ -214,7 +214,7 @@ function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
     return fig
 end
 
-function alocações(mu, Sigma, lista, ncarteiras = 10)
+function alocar(mu, Sigma, lista, ncarteiras = 10)
     modelo = Model(Ipopt.Optimizer)
     set_silent(modelo)       
     n = length(mu)                           
