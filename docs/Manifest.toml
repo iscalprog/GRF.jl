@@ -401,7 +401,7 @@ uuid = "1ecb1645-cdd7-491c-b391-f06610b95cea"
 version = "0.1.0"
 
 [[GR_jll]]
-deps = ["Artifacts", "Bzip2_jll", "Cairo_jll", "FFMPEG_jll", "Fontconfig_jll", "GLFW_jll", "JLLWrappers", "JpegTurbo_jll", "Libdl", "Libtiff_jll", "Pixman_jll", "Pkg", "Qt5Base_jll", "Zlib_jll", "libpng_jll"]
+deps = ["Artifacts", "Bzip2_jll", "Cairo_jll", "FFMPEG_jll", "Fontconfig_jll", "GLFW_jll", "JLLWrappers", "JpegTurbo_jll", "Libdl", "Libtiff_jll", "Pkg", "Qt5Base_jll", "Zlib_jll", "libpng_jll"]
 git-tree-sha1 = "578527027f2d6c29a8de3e2eb6887d8850ef755c"
 uuid = "d2c73de3-f751-5644-a686-071e5b155ba9"
 version = "0.57.1+0"

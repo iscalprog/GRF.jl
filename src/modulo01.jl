@@ -138,7 +138,7 @@ function EWMA(retornos, lambda)
 end
 
 
-function exceções(retornos, alfa)
+function semaforo(retornos, alfa)
     nobs = lenght(retornos)
     excep = zeros(nobs)
     sigma = std(retornos)
