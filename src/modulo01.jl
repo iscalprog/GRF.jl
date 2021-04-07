@@ -9,13 +9,12 @@ const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK
 
 """
     yahoo(simbolo, data_inicial, data_final, intervalo)
-Faz o download de (i) cotações de fecho ajustadas para ações (ii) valores de indices de ações e (iii) cotações de taxas de câmbio, através de Yahoo.Finance
 
 ## Argumentos
 * `si­mbolo`: Si­mbolo de mercado, e.g. "AAPL", "IBM", "^GSPC"
 * `data_inicial`: Data inicial de tipo Date/DateTime, e.g. Date(2019,12,20) ou DateTime(2019,12,20,8,30,0)
 * `data_final`: Data final de tipo Date/DateTime, e.g. Date(2020,12,20) ou DateTime(2020,12,20,8,30,0)
-* `intervalo`: Intervalo de amostragem, e.g. "1d" (por omissÃ£o), "1wk", "1mo", "3mo"
+* `intervalo`: Intervalo de amostragem, e.g. "1d", "1wk", "1mo", "3mo"
 """
 function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
     if isa(symbol, String) == true
