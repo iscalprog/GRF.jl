@@ -208,9 +208,9 @@ function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
     end
     aVaR = -z_alfa * sqrt(T) * sqrt.(diag(Sigma)) * V_0
     fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (Î± = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Efficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
-    fig = scatter!(aVaR, mu, label = "Ações")
+    fig = scatter!(aVaR, mu, label = "Ativos")
     VaR_CVM = -z_alfa * sqrt(T) * sqrt(w_CVM' * Sigma * w_CVM) * V_0
-    fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR Mínimo")
+    fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR Minimo")
     return fig
 end
 
@@ -245,7 +245,7 @@ function alocações(mu, Sigma, lista, ncarteiras = 10)
     ticklabel = "P" .* string.(collect(1:ncarteiras))
     ticklabel[1] = "CVM"
     ticklabel[ncarteiras] = "CRM"
-    fig = groupedbar(w_k', bar_position = :stack, bar_width=1.0, xlabel = "Carteiras", xticks=(1:ncarteiras, ticklabel), ylabel = "Alocações", label = permutedims(String.(lista)), legend = :bottomright)
+    fig = groupedbar(w_k', bar_position = :stack, bar_width=1.0, xlabel = "Carteiras", xticks=(1:ncarteiras, ticklabel), ylabel = "Pesos", label = permutedims(String.(lista)), legend = :bottomright)
     return fig
 end
 
