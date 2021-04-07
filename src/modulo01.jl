@@ -7,6 +7,14 @@ const DIVn = ["AMZN", "BAC", "C", "F", "FB", "GOOG","MS", "NFLX", "PEP", "TSLA"]
 const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK=X", "EURCAD=X", "EURAUD=X", "EURKRW=X", "HKD=X"]
 
 
+"""
+    yahoo(simbolos, data_inicial, data_final, intervalo = "1d")
+    
+Download dados de Yahoo.Finance
+
+Formato simbolos: e.g. ["IBM", "FB"]
+Formato das datas: e.g. Date(AAAA, MM, DD)
+"""
 function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interval::String = "1d")
     if isa(symbol, String) == true
         nsymb = 1
