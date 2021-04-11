@@ -20,14 +20,21 @@ const DAX30n = ["ADS.DE", "ALV.DE", "BAS.DE", "BAYN.DE", "BEI.DE", "BMW.DE", "CO
 const CAC40n = ["AI.PA", "AIR.PA", "ALO.PA", "MT.AS", "ATO.PA", "CS.PA", "BNP.PA", "EN.PA", "CAP.PA", "CA.PA", "ACA.PA", "BN.PA", "DSY.PA", "ENGI.PA", "EL.PA", "RMS.PA", "KER.PA", "OR.PA", "LR.PA", "MC.PA", "ML.PA", "ORA.PA", "RI.PA", "PUB.PA", "RNO.PA", "SAF.PA", "SGO.PA", "SAN.PA", "SU.PA", "GLE.PA", "STLA.PA", "STM.PA", "TEP.PA", "HO.PA", "FP.PA", "URW.AS", "VIE.PA", "DG.PA", "VIV.PA", "WLN.PA", "^FCHI"]
 
 
+const FTSEMIBn = ["A2A.MI", "AMP.MI", "ATL.MI", "AZM.MI", "BGN.MI", "BAMI.MI", "BPE.MI", "BRE.MI", "BZU.MI", "CPR.MI", "CNHI.MI", "DIA.MI", "ENEL.MI", "ENI.MI", "EXO.MI", "RACE.MI", "FBK.MI", "G.MI", "ISP.MI", "IG.MI", "JUVE.MI", "LDO.MI", "MB.MI", "MONC.MI", "PIRC.MI", "PST.MI", "PRY.MI", "REC.MI", "SPM.MI", "SFER.MI", "SRG.MI", "STLA.MI", "STM.MI", "TIT.MI", "TEN.MI", "TRN.MI", "UBI.MI", "UCG.MI", "UNI.MI", "US.MI", "FTSEMIB.MI"]
+
+
 const PSI20n = ["ALTR.LS", "BCP.LS", "COR.LS", "CTT.LS", "EDP.LS", "EDPR.LS", "GALP.LS", "IBS.LS", "JMT.LS", "EGL.LS", "NBA.LS", "NOS.LS", "NVG.LS", "PHR.LS", "RAM.LS", "RENE.LS", "SEM.LS", "SON.LS", "PSI20.LS"]
 
 
 const EUROSTOXX50n = ["ADS.DE", "AD.AS", "AI.PA", "AIR.PA", "ALV.DE", "ABI.BR", "ASML.AS", "AMS.MC", "CS.PA", "BBVA.MC", "SAN.MC", "BAS.DE", "BAYN.DE", "BMW.DE", "BNP.PA", "CRG.IR", "SGO.PA", "DAI.DE", "DPW.DE", "DTE.DE", "ENEL.MI", "ENGI.PA", "ENI.MI", "EOAN.DE", "EL.PA", "FRE.DE", "BN.PA", "IBE.MC", "ITX.MC", "INGA.AS", "ISP.MI", "LIN.DE", "OR.PA", "MC.PA", "MUV2.DE", "NOKIA.HE", "ORA.PA", "PHIA.AS", "SAF.PA", "SAN.PA", "SAP.DE", "SU.PA", "SIE.DE", "GLE.PA", "TEF.MC", "FP.PA", "URW.AS", "UNA.AS", "DG.PA", "VIV.PA", "VOW.DE"]
 
 
-const DIVn = ["AMZN", "BAC", "C", "F", "FB", "GOOG","MS", "NFLX", "PEP", "TSLA"]
+const ASX50n = ["A2M.AX", "AGL.AX", "AMC.AX", "ANZ.AX", "APA.AX", "ALD.AX", "ALL.AX", "ASX.AX", "AZJ.AX", "BHP.AX", "BXB.AX", "COH.AX", "COL.AX", "CBA.AX", "CPU.AX", "CSL.AX", "DXS.AX", "FMG.AX", "GMG.AX", "GPT.AX", "IAG.AX", "JHX.AX", "LLC.AX", "MQG.AX", "MPL.AX", "MGR.AX", "NAB.AX", "NCM.AX", "OSH.AX", "ORI.AX", "ORG.AX", "QAN.AX", "QBE.AX", "RHC.AX", "RIO.AX", "STO.AX", "SCG.AX", "SHL.AX", "S32.AX", "SGP.AX", "SUN.AX", "SYD.AX", "TLS.AX", "TCL.AX", "TWE.AX", "VCX.AX", "WES.AX", "WBC.AX", "WPL.AX", "WOW.AX", "^AFLI"] 
 
+
+const HKSEn = ["0005.HK", "0011.HK", "0388.HK", "0939.HK", "1299.HK", "1398.HK", "2318.HK", "2388.HK", "2628.HK", "3328.HK", "3988.HK", "0002.HK", "0003.HK", "0006.HK", "1038.HK", "0012.HK", "0016.HK", "0017.HK", "0101.HK", "0688.HK", "0823.HK", "0960.HK", "1109.HK", "1113.HK", "1997.HK", "2007.HK", "0001.HK", "0027.HK", "0066.HK", "0175.HK", "0241.HK", "0267.HK", "0288.HK", "0386.HK", "0669.HK", "0700.HK", "0762.HK", "0857.HK", "0883.HK", "0941.HK", "1044.HK", "1093.HK", "1177.HK", "1810.HK", "1876.HK", "1928.HK", "2018.HK", "2020.HK", "2269.HK", "2313.HK", "2319.HK", "2382.HK", "3690.HK", "6862.HK", "9988.HK", "^HSI"]
+
+const SMIn = ["NESN.SW", "NOVN.SW", "ROG.SW", "ZURN.SW", "UBSG.SW", "ABBN.SW", "CFR.SW", "LONN.SW", "SIKA.SW", "ALC.SW", "GIVN.SW", "LHN.SW", "SCMN.SW", "CSGN.SW", "PGHN.SW", "SREN.SW", "GEBN.SW", "SGSN.SW", "SLHN.SW", "UHR.SW"]
 
 const FXn = ["EURUSD=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURSEK=X", "EURDKK=X", "EURCAD=X", "EURAUD=X", "EURKRW=X", "HKD=X"]
 

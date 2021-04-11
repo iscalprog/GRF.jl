@@ -2,7 +2,7 @@ module GRF
 
 # using ARCHModels       
 using Cbc               
-# using CSV
+using CSV
 using Dates             
 using DataFrames
 using Distributions     
@@ -35,6 +35,18 @@ nikkeir = retornos(nikkeic, :log)
 CSV.write("NIKKEI225r.csv", nikkeir)
 =#
 
+#=
+mibn = CSV.read("FTSEMIBn.csv", DataFrame)
+println(mibn[!,:Simbolo])
+=#
+
+#=
+mibc = yahoo(FTSEMIBn, Date(2015,12,31), Date(2021,3,31))
+println(describe(mibc))
+CSV.write("FTSEMIBc.csv", mibc)
+mibr = retornos(mibc, :log)
+CSV.write("FTSEMIBr.csv", mibr)
+=#
 
 
 # Notebooks interativos 
