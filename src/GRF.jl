@@ -1,26 +1,40 @@
 module GRF
 
-using ARCHModels        # Modelos GARCH
-using Cbc               # Optimização com variáveis discretas
+using ARCHModels       
+using Cbc               
 using CSV
-using Dates             # Operações com datas
+using Dates             
 using DataFrames
-using Distributions     # Distribuições de probabilidade
-using HypothesisTests   # Testes de hipóteses
+using Distributions     
+using HypothesisTests   
 using HTTP
-using Ipopt             # Optimização não-linear
+using Ipopt             
 using JSON
-using JuMP              # Linguagem de modelização para optimização
-using Juniper           # Optimização não-linear com variáveis discretas
-using LinearAlgebra     #
-using Random            # 
-using Statistics        # Estatística descritiva, inclui cálculo de quantis
-using StatsPlots        # Gráficos 
+using JuMP              
+using Juniper          
+using LinearAlgebra    
+using Random           
+using Statistics        
+using StatsPlots       
 
 include("modulo01.jl")
 
 # using Pkg
 # println(haskey(Pkg.installed(), "JuMP"))
+
+#=
+nikkein = CSV.read("NIKKEI225n.csv", DataFrame)
+println(nikkein[!,:Simbolo])
+=#
+
+#=
+nikkeic = yahoo(NIKKEI225n, Date(2015,12,31), Date(2021,3,31))
+println(describe(nikkeic))
+CSV.write("NIKKEI225c.csv", nikkeic)
+nikkeir = retornos(nikkeic, :log)
+CSV.write("NIKKEI225r.csv", nikkeir)
+=#
+
 
 
 # Notebooks interativos 
