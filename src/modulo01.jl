@@ -226,7 +226,7 @@ function gfe(mu, Sigma, T, ncarteiras = 10)
     optimize!(modelo)                                   
     w_CVM = value.(w)  
     mu_CVM = mu' * w_CVM                                 
-    sigma_k = zeros(ncarteiras)
+    var_k = zeros(ncarteiras)
     mu_k = zeros(ncarteiras)
     for i in 0:ncarteiras-1
         modelo = Model(Ipopt.Optimizer)
