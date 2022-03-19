@@ -215,7 +215,7 @@ function fe(mu, Sigma, mu_k)
 
 
 
-function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
+function gfe(mu, Sigma, T, ncarteiras = 10)
     n = length(mu) 
     modelo = Model(Ipopt.Optimizer)
     set_silent(modelo)                                 
@@ -226,7 +226,7 @@ function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
     optimize!(modelo)                                   
     w_CVM = value.(w)  
     mu_CVM = mu' * w_CVM                                 
-    VaR_k = zeros(ncarteiras)
+    sigma_k = zeros(ncarteiras)
     mu_k = zeros(ncarteiras)
     for i in 0:ncarteiras-1
         modelo = Model(Ipopt.Optimizer)
@@ -241,13 +241,13 @@ function gfe(mu, Sigma, z_alfa, T, V_0, ncarteiras = 10)
         @constraint(modelo, mu' * w >= mu_k[i+1])                
         optimize!(modelo)                                  
         w_k = value.(w)   
-        VaR_k[i+1] = -z_alfa * sqrt(T) * sqrt(w_k' * Sigma * w_k) * V_0
+        var_k[i+1] = T * w_k' * Sigma * w_k 
     end
-    aVaR = -z_alfa * sqrt(T) * sqrt.(diag(Sigma)) * V_0
-    fig = plot(VaR_k,mu_k, xlabel = "VaR da Carteira (alfa = $(alfa))", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Eficiente", xlim = (0, maximum(aVaR) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
-    fig = scatter!(aVaR, mu, label = "Ativos")
-    VaR_CVM = -z_alfa * sqrt(T) * sqrt(w_CVM' * Sigma * w_CVM) * V_0
-    fig = scatter!([VaR_CVM], [mu_CVM], label = "Carteira VaR Minimo")
+    avar = T * diag(Sigma)
+    fig = plot(var_k,mu_k, xlabel = "Risco da Carteira", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Eficiente", xlim = (0, maximum(avar) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
+    fig = scatter!(avar, mu, label = "Ativos")
+    var_CVM = T * w_CVM' * Sigma * w_CVM
+    fig = scatter!([var_CVM], [mu_CVM], label = "Carteira variância minima")
     return fig
 end
 
