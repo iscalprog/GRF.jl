@@ -12,42 +12,12 @@ using Ipopt
 using JSON
 using JuMP              
 using Juniper          
-# using LinearAlgebra    
+using LinearAlgebra    
 # using Random           
 using Statistics        
 using StatsPlots       
 
 include("modulo01.jl")
-
-# using Pkg
-# println(haskey(Pkg.installed(), "JuMP"))
-
-#=
-nikkein = CSV.read("NIKKEI225n.csv", DataFrame)
-println(nikkein[!,:Simbolo])
-=#
-
-#=
-nikkeic = yahoo(NIKKEI225n, Date(2015,12,31), Date(2021,3,31))
-println(describe(nikkeic))
-CSV.write("NIKKEI225c.csv", nikkeic)
-nikkeir = retornos(nikkeic, :log)
-CSV.write("NIKKEI225r.csv", nikkeir)
-=#
-
-#=
-mibn = CSV.read("FTSEMIBn.csv", DataFrame)
-println(mibn[!,:Simbolo])
-=#
-
-#=
-mibc = yahoo(FTSEMIBn, Date(2015,12,31), Date(2021,3,31))
-println(describe(mibc))
-CSV.write("FTSEMIBc.csv", mibc)
-mibr = retornos(mibc, :log)
-CSV.write("FTSEMIBr.csv", mibr)
-=#
-
 
 # Notebooks interativos 
 # binder: https://mybinder.org 
