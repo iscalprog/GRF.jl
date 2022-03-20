@@ -1,10 +1,9 @@
 module GRF
 
-using Reexport 
 using ARCHModels       
 using Cbc               
 using CSV
-@reexport using Dates             
+using Dates             
 using DataFrames
 using Distributions     
 using HypothesisTests   
