@@ -69,13 +69,14 @@ function yahoo(symbol, date1 = Date(1900,1,1), date2 = Date(Dates.now()), interv
     from = string(round(Int64, datetime2unix(date1)))
     to = string(round(Int64, datetime2unix(date2)))
     host = rand(["query1", "query2"])
+    print("Concluído:")
     for i in 1:nsymb
         if nsymb == 1 && (isa(symbol, String) == true || isa(symbol, Symbol) == true) 
             symb = String(symbol)
         else
             symb = String(symbol[i])
         end
-        print(symb," ")
+        print(" ", symb)
         url = "https://$host.finance.yahoo.com/v7/finance/chart/$symb?&interval=$interval&period1=$from&period2=$to"
         response = HTTP.get(url, cookies = true)
         body = JSON.parse(String(response.body))["chart"]["result"][1]   
