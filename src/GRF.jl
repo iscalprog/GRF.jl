@@ -15,7 +15,8 @@ using Juniper
 using LinearAlgebra    
 using Random           
 using Statistics        
-using StatsPlots       
+using StatsPlots 
+using XLSX      
 
 include("modulo01.jl")
 
