@@ -279,7 +279,6 @@ function alocar(mu, Sigma, lista, ncarteiras = 10)
         optimize!(modelo)                                  
         w_k[:,i+1] = value.(w)   
     end
-    println(w_k)
     ticklabel = "P" .* string.(collect(1:ncarteiras))
     ticklabel[1] = "CVM"
     ticklabel[ncarteiras] = "CRM"
