@@ -1,7 +1,6 @@
 module GRF
 
-using ARCHModels       
-using Cbc               
+using ARCHModels                   
 using CSV
 using Dates             
 using DataFrames
@@ -11,14 +10,12 @@ using HypothesisTests
 using HTTP
 using Ipopt             
 using JSON
-using JuMP              
-using Juniper          
+using JuMP                   
 using LinearAlgebra  
 using LsqFit  
 using Random           
 using Statistics        
-using StatsPlots 
-using XLSX      
+using StatsPlots     
 
 include("modulo01.jl")
 
