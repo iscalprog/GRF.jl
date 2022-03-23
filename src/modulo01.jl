@@ -245,7 +245,7 @@ function gfe(mu, Sigma, T, ncarteiras = 10)
         var_k[i+1] = T * w_k' * Sigma * w_k 
     end
     avar = T * diag(Sigma)
-    fig = plot(var_k,mu_k, xlabel = "Risco da Carteira", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Eficiente", xlim = (0, maximum(avar) * 1.1), ylim = (0, maximum(mu)*1.1), legend = :bottomright)
+    fig = plot(var_k,mu_k, xlabel = "Risco da Carteira", ylabel = "Valor Esperado do Retorno da Carteira", label = "Fronteira Eficiente", xlim = (0, maximum(avar) * 1.1), ylim = (0, maximum(mu)*1.1), framestyle = :box, legend = :bottomright)
     fig = scatter!(avar, mu, label = "Ativos")
     var_CVM = T * w_CVM' * Sigma * w_CVM
     fig = scatter!([var_CVM], [mu_CVM], label = "Carteira variância minima")
@@ -283,7 +283,7 @@ function alocar(mu, Sigma, lista, ncarteiras = 10)
     ticklabel = "P" .* string.(collect(1:ncarteiras))
     ticklabel[1] = "CVM"
     ticklabel[ncarteiras] = "CRM"
-    fig = groupedbar(w_k', bar_position = :stack, bar_width=1.0, xlabel = "Carteiras", xticks=(1:ncarteiras, ticklabel), ylabel = "Pesos", label = permutedims(String.(lista)), legend = :bottomright)
+    fig = groupedbar(w_k', bar_position = :stack, bar_width=1.0, xlabel = "Carteiras", xticks=(1:ncarteiras, ticklabel), ylabel = "Pesos", label = permutedims(String.(lista)), legend = :bottomright, framestyle = :box)
     return fig
 end
 
