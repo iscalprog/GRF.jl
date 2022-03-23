@@ -177,7 +177,7 @@ end
 
 
 function semaforo(retornos, alfa)
-    nobs = lenght(retornos)
+    nobs = length(retornos)
     excep = zeros(nobs)
     sigma = std(retornos)
     RaR = - sigma * quantile(Normal(0,1), alfa)
